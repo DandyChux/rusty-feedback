@@ -2,7 +2,10 @@ use common::{ErrorResponse, Feedback, FeedbackListResponse, FeedbackResponse};
 use reqwasm::http;
 
 pub async fn api_create_feedback(feedback_data: &str) -> Result<Feedback, String> {
-    let response = match http::Request::post("http://localhost:8000/api/feedbacks/")
+    let api_url = std::env::var("API_URL").unwrap_or_else(|_| "http://localhost:8000".to_string());
+    let url = format!("{}/api/feedbacks/", api_url);
+
+    let response = match http::Request::post(&url)
         .header("Content-Type", "application/json")
         .body(feedback_data)
         .send()
@@ -29,9 +32,10 @@ pub async fn api_create_feedback(feedback_data: &str) -> Result<Feedback, String
 }
 
 pub async fn _api_fetch_single_feedback(feedback_id: &str) -> Result<Feedback, String> {
-    let response = match http::Request::get(
-        format!("http://localhost:8000/api/feedbacks/{}", feedback_id).as_str(),
-    )
+    let api_url = std::env::var("API_URL").unwrap_or_else(|_| "http://localhost:8000".to_string());
+    let url = format!("{}/api/feedbacks/{}", api_url, feedback_id);
+
+    let response = match http::Request::get(&url)
     .send()
     .await
     {
