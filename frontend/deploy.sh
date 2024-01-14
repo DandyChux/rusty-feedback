@@ -13,15 +13,9 @@ set -x
 # 2. Build the project
 # Clean the previous build
 cargo clean
+# Install trunk
+cargo install trunk wasm-bindgen-cli
+# Install wasm target
+rustup target add wasm32-unknown-unknown
 # Build the project in release mode
-cargo build --release
-
-# Copy artifacts to the deployment directory
-# Create the dist directory if it doesn't exist
-mkdir -p dist
-# Copy the build artifacts to the dist directory
-cp -R ../target/release/frontend dist/
-
-# Run the executable in the dist directory
-cd dist
-./frontend
+trunk build --release
