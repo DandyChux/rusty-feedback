@@ -20,4 +20,8 @@ cargo build --release
 # Create the dist directory if it doesn't exist
 mkdir -p dist
 # Copy the build artifacts to the dist directory
+echo "Current working directory: $(pwd)"
+echo "Contents of ./target/release/:"
+ls ./target/release/
+
 cp -R ./target/release/* dist/
