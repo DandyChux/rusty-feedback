@@ -60,13 +60,9 @@ pub async fn _api_fetch_single_feedback(feedback_id: &str) -> Result<Feedback, S
 }
 
 pub async fn api_fetch_feedbacks((page, limit): (i32, i32)) -> Result<Vec<Feedback>, String> {
-    let response = match http::Request::get(
-        format!(
-            "http://localhost:8000/api/feedbacks?page={}&limit={}",
-            page, limit
-        )
-        .as_str(),
-    )
+    let api_url = std::env::var("API_URL").unwrap_or_else(|_| "http://localhost:8000".to_string());
+    let url = format!("{}/api/feedbacks?page={}&limit={}", api_url, page, limit);
+    let response = match http::Request::get(&url)
     .send()
     .await
     {
@@ -91,9 +87,9 @@ pub async fn api_fetch_feedbacks((page, limit): (i32, i32)) -> Result<Vec<Feedba
 }
 
 pub async fn api_delete_feedback(feedback_id: &str) -> Result<(), String> {
-    let response = match http::Request::delete(
-        format!("http://localhost:8000/api/feedbacks/{}", feedback_id).as_str(),
-    )
+    let api_url = std::env::var("API_URL").unwrap_or_else(|_| "http://localhost:8000".to_string());
+    let url = format!("{}/api/feedbacks/{}", api_url, feedback_id);
+    let response = match http::Request::delete(&url)
     .send()
     .await
     {
