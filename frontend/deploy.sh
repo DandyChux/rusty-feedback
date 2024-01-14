@@ -7,8 +7,8 @@ set -e
 set -x
 
 # 1. Install Rust (uncomment and modify if necessary)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source $HOME/.cargo/env
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# source $HOME/.cargo/env
 
 # 2. Build the project
 # Clean the previous build
