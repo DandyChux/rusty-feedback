@@ -41,7 +41,7 @@ pub fn set_loading(loading: bool, dispatch: Dispatch<Store>) {
 }
 
 pub fn set_show_alert(message: String, dispatch: Dispatch<Store>) {
-    dispatch.reduce_mut(move |store| {
+    dispatch.reduce_mut(move |store: &mut Store| {
         store.alert_input = AlertInput {
             alert_message: message,
             show_alert: true,

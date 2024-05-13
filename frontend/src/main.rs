@@ -23,6 +23,7 @@ fn App() -> Html {
         message,
         delay_ms: 5000,
     };
+    
     html! {
         <>
             if show_alert {
@@ -31,7 +32,7 @@ fn App() -> Html {
                     delay_ms={alert_props.delay_ms}
                 />
             }
-            <main class="md:container mt-24 px-5">
+            <main class="px-5 mt-24 md:container">
                 <FeedbackForm />
                 <FeedbackStats />
                 <FeedbackList />

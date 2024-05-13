@@ -21,7 +21,7 @@ cargo install trunk wasm-bindgen-cli
 rustup target add wasm32-unknown-unknown
 
 # Set environment variable
-# export PRODUCTION_API_URL="https://rust-feedback-api.onrender.com"
+# export API_URL="https://rust-feedback-api.onrender.com"
 
 # Build the project in release mode
 trunk build --release

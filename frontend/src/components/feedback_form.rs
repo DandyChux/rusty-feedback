@@ -9,6 +9,7 @@ use wasm_bindgen_futures::spawn_local;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yewdux::prelude::*;
+use serde_json::json;
 
 #[function_component]
 pub fn FeedbackForm() -> Html {
@@ -61,7 +62,7 @@ pub fn FeedbackForm() -> Html {
                 return;
             }
 
-            let feedback_data = serde_json::json!({
+            let feedback_data = json!({
                 "text": text.to_string(),
                 "rating": *rating
             });
@@ -91,32 +92,32 @@ pub fn FeedbackForm() -> Html {
     };
 
     html! {
-        <div class="bg-white text-gray-700 rounded-lg p-8 my-5 relative">
+        <div class="relative p-8 my-5 text-gray-700 bg-white rounded-lg">
             <header class="max-w-md mx-auto">
-                <h2 class="text-center text-2xl font-bold">{"How would you rate your service with us?"}</h2>
+                <h2 class="text-2xl font-bold text-center">{"How would you rate your service with us?"}</h2>
             </header>
             <form onsubmit={on_submit}>
                 <Rating selected={*rating} onchange={handle_select} />
-                <div class="flex border rounded-lg my-4 px-2 py-3">
+                <div class="flex px-2 py-3 my-4 border rounded-lg">
                     <input
                         type="text"
                         ref={text_input_ref}
                         oninput={handle_input}
-                        class="flex-grow border-none text-lg focus:outline-none"
+                        class="flex-grow text-lg border-none focus:outline-none"
                         placeholder="Tell us something that keeps you coming back"
                     />
-                <button
-                    type="submit"
-                    class={format!(
-                        "border-0 rounded-md w-28 h-10 cursor-pointer hover:bg-indigo-500 {}",
-                        if *loading { "bg-[#ccc] text-gray-800"} else {"bg-indigo-600 text-white"}
-                    )}
-                >
-                    {"Send"}
-                </button>
+                    <button
+                        type="submit"
+                        class={format!(
+                            "border-0 rounded-md w-28 h-10 cursor-pointer hover:bg-indigo-500 {}",
+                            if *loading { "bg-[#ccc] text-gray-800"} else {"bg-indigo-600 text-white"}
+                        )}
+                    >
+                        {"Send"}
+                    </button>
                 </div>
                 {if let Some(msg) = message.as_ref() {
-                    html! { <div class="pt-3 text-center text-purple-600">{msg.clone()}</div> }
+                    html! { <div class="pt-3 text-center text-red-600">{msg.clone()}</div> }
                 } else {
                     html! {}
                 }}
